@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resume & Internship Matcher</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>AI Resume & Internship Matcher</h1>
+    <p class="subtitle">Check how well your resume matches an internship description using NLP</p>
+
+    <div class="grid">
+      <div>
+        <label for="resume">Your Resume Text</label>
+        <textarea id="resume" rows="10" placeholder="Paste your resume skills, projects, and education here..."></textarea>
+      </div>
+      <div>
+        <label for="jd">Internship / Job Description</label>
+        <textarea id="jd" rows="10" placeholder="Paste the internship requirements here..."></textarea>
+      </div>
+    </div>
+
+    <button id="analyzeBtn" onclick="analyzeMatch()">Analyze Match Score</button>
+
+    <div id="resultBox" class="result hidden">
+      <h2>Match Score: <span id="scoreText">0%</span></h2>
+      <p><strong>Matched Skills:</strong> <span id="matchedText">None</span></p>
+      <p><strong>Missing Skills to Add/Learn:</strong> <span id="missingText">None</span></p>
+    </div>
+  </div>
+
+  <script>
+    async function analyzeMatch() {
+      const resume = document.getElementById("resume").value;
+      const jd = document.getElementById("jd").value;
+      const response = await fetch("/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resume, jd })
+      });
+      const data = await response.json();
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+      document.getElementById("resultBox").classList.remove("hidden");
+      document.getElementById("scoreText").innerText = data.score + "%";
+      document.getElementById("matchedText").innerText = data.matched.length ? data.matched.join(", ") : "None detected";
+      document.getElementById("missingText").innerText = data.missing.length ? data.missing.join(", ") : "Great! No major skills missing";
+    }
+  </script>
+</body>
+</html>
