@@ -46,5 +46,5 @@ Make sure you have Python 3.8+ installed on your machine.
 
 ## 👩‍💻 Author
 **Jahnavi Dubba**  
-- GitHub: [@jahnavi-sudo](https://github.com)
-- LinkedIn: [Jahnavi Dubba](https://linkedin.com) *(replace with your profile URL)*
+- GitHub: [@jahnavi-sudo](https://github.com/jahnavi-sudo/ai-resume-matcher/edit/main/README.md)
+- LinkedIn: [Jahnavi Dubba](www.linkedin.com/in/jahnavi-dubba-49b837431)
